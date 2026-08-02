@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#b45ea8" />
+    <meta name="description" content="A unicorn and princess flower-matching shooter for children." />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Petal Kingdom" />
+    <title>Petal Kingdom — Unicorn Flower Shooter</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <!-- ===================== TITLE SCREEN ===================== -->
+      <section id="titleScreen" class="screen title-screen is-active" aria-label="Petal Kingdom title screen">
+        <div class="title-art" aria-hidden="true">
+          <!-- ASSET SLOT: assets/art/title-card.png (1536x1024) drops in here as a background -->
+          <div class="title-crest">
+            <span class="crest-sparkle crest-sparkle--a">✦</span>
+            <span class="crest-sparkle crest-sparkle--b">✦</span>
+            <span class="crest-sparkle crest-sparkle--c">✦</span>
+          </div>
+        </div>
+
+        <h1 class="title-word">Petal Kingdom</h1>
+        <p class="title-sub">Match three flowers to make them bloom!</p>
+
+        <div class="title-buttons">
+          <button class="big-button big-button--play" id="playButton" type="button">
+            <span class="big-button__icon" aria-hidden="true">🌸</span>
+            <span class="big-button__label">Play</span>
+          </button>
+          <button class="big-button big-button--ghost" id="howButton" type="button">
+            <span class="big-button__icon" aria-hidden="true">?</span>
+            <span class="big-button__label">How to play</span>
+          </button>
+        </div>
+
+        <div class="title-footer">
+          <button class="chip-button" id="titleSoundButton" type="button" aria-pressed="true">
+            <span aria-hidden="true">🔊</span> <span class="chip-label">Sound on</span>
+          </button>
+          <button class="chip-button" id="titleMotionButton" type="button" aria-pressed="false">
+            <span aria-hidden="true">✨</span> <span class="chip-label">Full sparkle</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===================== MODE SELECT ===================== -->
+      <section id="modeScreen" class="screen mode-screen" aria-label="Choose a game mode">
+        <header class="sub-header">
+          <button class="round-button" id="modeBackButton" type="button" aria-label="Back to the title screen">
+            <span aria-hidden="true">←</span>
+          </button>
+          <h2 class="sub-title">Choose a mode</h2>
+          <div class="header-spacer" aria-hidden="true"></div>
+        </header>
+        <div class="mode-grid">
+          <button class="mode-card mode-card--classic" type="button" data-mode="classic">
+            <span class="mode-icon" aria-hidden="true">🌷</span>
+            <strong>Classic</strong>
+            <span>Clear the garden while rows slowly descend.</span>
+            <small>12 gardens</small>
+          </button>
+          <button class="mode-card mode-card--arcade" type="button" data-mode="arcade">
+            <span class="mode-icon" aria-hidden="true">👾</span>
+            <strong>Arcade</strong>
+            <span>Beat score, pop and drop challenges.</span>
+            <small>8 challenges</small>
+          </button>
+          <button class="mode-card mode-card--puzzle" type="button" data-mode="puzzle">
+            <span class="mode-icon" aria-hidden="true">🧩</span>
+            <strong>Puzzle</strong>
+            <span>Solve fixed flower maps with limited shots.</span>
+            <small>8 puzzles</small>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===================== LEVEL SELECT ===================== -->
+      <section id="levelScreen" class="screen level-screen" aria-label="Choose a garden">
+        <header class="sub-header">
+          <button class="round-button" id="levelBackButton" type="button" aria-label="Back to the title screen">
+            <span aria-hidden="true">←</span>
+          </button>
+          <div class="level-heading">
+            <span class="mode-pill" id="modePill">Classic</span>
+            <h2 class="sub-title" id="levelTitle">Choose a garden</h2>
+          </div>
+          <div class="header-spacer" aria-hidden="true"></div>
+        </header>
+        <div class="level-grid" id="levelGrid" role="list"></div>
+      </section>
+
+      <!-- ===================== GAME SCREEN ===================== -->
+      <section id="gameScreen" class="screen game-screen" aria-label="Flower shooter game">
+        <div class="game-frame">
+          <header class="game-hud">
+            <button class="round-button" id="pauseButton" type="button" aria-label="Pause the game">
+              <span aria-hidden="true">❚❚</span>
+            </button>
+
+            <div class="hud-readouts">
+              <div class="hud-item">
+                <span class="hud-label" id="hudStageLabel">Garden</span>
+                <span class="hud-value" id="hudLevel">1</span>
+              </div>
+              <div class="hud-item">
+                <span class="hud-label">Score</span>
+                <span class="hud-value" id="hudScore">0</span>
+              </div>
+              <div class="hud-item hud-item--goal">
+                <span class="hud-label" id="hudGoalLabel">Flowers left</span>
+                <span class="hud-value" id="hudGoal">0</span>
+              </div>
+            </div>
+
+            <button class="round-button" id="soundButton" type="button" aria-pressed="true" aria-label="Turn sound off">
+              <span aria-hidden="true">🔊</span>
+            </button>
+          </header>
+
+          <div class="stage-wrap">
+            <canvas id="gameCanvas" class="game-canvas" role="img"
+                    aria-label="Flower garden playfield. Use the arrow keys to aim and the space bar to shoot."></canvas>
+
+            <!-- Helper character rail. ASSET SLOTS live here. -->
+            <aside class="helper-rail" id="helperRail" aria-hidden="true">
+              <div class="helper-figure" id="helperFigure" data-mood="idle">
+                <!-- ASSET SLOT: assets/art/helper-idle.png / helper-cheer.png / helper-worry.png -->
+                <div class="helper-fallback" id="helperFallback">
+                  <div class="helper-horn"></div>
+                  <div class="helper-face">
+                    <span class="helper-eye helper-eye--l"></span>
+                    <span class="helper-eye helper-eye--r"></span>
+                    <span class="helper-smile"></span>
+                  </div>
+                  <div class="helper-mane"></div>
+                </div>
+              </div>
+              <p class="helper-say" id="helperSay">Let's grow a garden!</p>
+            </aside>
+          </div>
+
+          <footer class="game-foot">
+            <div class="next-strip">
+              <span class="next-label">Next</span>
+              <canvas id="nextCanvas" class="next-canvas" aria-label="Next flower"></canvas>
+              <button class="swap-button" id="swapButton" type="button" aria-label="Swap the flower you are holding">
+                <span aria-hidden="true">⇄</span>
+              </button>
+            </div>
+            <p class="foot-hint" id="footHint">Tap where you want the flower to fly.</p>
+          </footer>
+        </div>
+      </section>
+
+      <!-- ===================== OVERLAYS ===================== -->
+      <div class="overlay" id="overlay" hidden>
+        <div class="overlay-card" id="overlayCard" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
+          <div class="overlay-art" id="overlayArt" aria-hidden="true">
+            <!-- ASSET SLOT: assets/art/win-banner.png on a win -->
+            <span class="overlay-emoji" id="overlayEmoji">🌸</span>
+          </div>
+          <h2 class="overlay-title" id="overlayTitle">Paused</h2>
+          <p class="overlay-text" id="overlayText"></p>
+          <div class="overlay-stars" id="overlayStars" hidden>
+            <span class="star" data-star="1">★</span>
+            <span class="star" data-star="2">★</span>
+            <span class="star" data-star="3">★</span>
+          </div>
+          <div class="overlay-buttons" id="overlayButtons"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

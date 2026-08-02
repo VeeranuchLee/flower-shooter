@@ -1,0 +1,16 @@
+{
+  "name": "Petal Kingdom",
+  "short_name": "Petal Kingdom",
+  "description": "A unicorn and princess flower-matching shooter for children.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#EBCCFF",
+  "theme_color": "#b45ea8",
+  "icons": [
+    { "src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "./assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
