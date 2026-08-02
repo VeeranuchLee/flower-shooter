@@ -5,7 +5,7 @@
    a missing file must never break installation, so they are added one by one
    and failures are swallowed. When art is added later, bump CACHE_NAME. */
 
-const CACHE_NAME = "petal-kingdom-public-v1";
+const CACHE_NAME = "petal-kingdom-public-v2";
 
 const APP_FILES = [
   "./",

@@ -1482,14 +1482,30 @@
       var t = i / pts.length;
       var rr = L.d * (0.075 - t * 0.035);
       if (rr <= 0.4) break;
-      ctx.globalAlpha = 0.85 - t * 0.30;
+
+      // A plum halo keeps the white guide visible on both the pale illustrated
+      // backgrounds and the darker code-drawn fallback without changing its
+      // familiar dotted appearance.
+      ctx.globalAlpha = 0.82 - t * 0.22;
+      ctx.fillStyle = "#3E164A";
+      ctx.beginPath();
+      ctx.arc(pts[i].x, pts[i].y, rr + Math.max(1.5, L.d * 0.024), 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.globalAlpha = 0.98 - t * 0.24;
       ctx.fillStyle = "#FFFFFF";
       ctx.beginPath();
       ctx.arc(pts[i].x, pts[i].y, rr, 0, Math.PI * 2);
       ctx.fill();
     }
     // landing marker
-    ctx.globalAlpha = 0.55 + 0.25 * Math.sin(this.time * 0.008);
+    ctx.globalAlpha = 0.78 + 0.16 * Math.sin(this.time * 0.008);
+    ctx.strokeStyle = "#3E164A";
+    ctx.lineWidth = Math.max(5, L.d * 0.12);
+    ctx.beginPath();
+    ctx.arc(end.x, end.y, L.r * 0.72, 0, Math.PI * 2);
+    ctx.stroke();
+
     ctx.strokeStyle = "#FFFFFF";
     ctx.lineWidth = Math.max(2, L.d * 0.05);
     ctx.beginPath();
