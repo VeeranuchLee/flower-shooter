@@ -50,10 +50,11 @@ self.addEventListener("install", (event) => {
   );
 });
 
+/* Cache isolation (private PR #288): evict only this app's own old caches - sibling apps on this origin keep theirs. */
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+      Promise.all(keys.filter((k) => /^petal-kingdom-v/.test(k) && k !== CACHE_NAME).map((k) => caches.delete(k)))
     ).then(() => self.clients.claim())
   );
 });
