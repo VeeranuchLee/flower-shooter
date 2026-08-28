@@ -138,6 +138,17 @@ button {
 
 .title-screen { gap: clamp(10px, 2vh, 26px); text-align: center; }
 
+/* The hub arrow sits in the title screen's own top-left corner. `.screen` centres its
+   children, so it has to come out of the flex flow or it would land in the middle of
+   the card stack. Same shape as every other round-button in the game. */
+.hub-button {
+  position: absolute;
+  top: clamp(10px, 2vh, 20px);
+  left: clamp(10px, 2vw, 20px);
+  text-decoration: none;
+  z-index: 3;
+}
+
 .title-art {
   position: relative;
   width: clamp(150px, 22vmin, 260px);

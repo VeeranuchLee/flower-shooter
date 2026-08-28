@@ -5,8 +5,15 @@
    a missing file must never break installation, so they are added one by one
    and failures are swallowed. When art is added later, bump CACHE_NAME. */
 
-const CACHE_NAME = "petal-kingdom-public-v2";
+const CACHE_NAME = "petal-kingdom-v6";
 
+/* Every APP_FILES entry must exist on the PUBLISHED site, not just here: install
+   calls addAll, so a single 404 rejects the whole install and the app goes live
+   with no offline cache at all. `background-demo.html` is [private] in
+   `.publish-manifest` -- a development page, deliberately never published -- so
+   this list precached a URL that 404s on veeranuchlee.github.io while working
+   perfectly from a local server. Removed 2026-08-28, found while publishing the
+   back-to-hub arrow; nothing in the app links to that page. */
 const APP_FILES = [
   "./",
   "./index.html",

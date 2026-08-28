@@ -18,6 +18,17 @@
     <main class="app-shell">
       <!-- ===================== TITLE SCREEN ===================== -->
       <section id="titleScreen" class="screen title-screen is-active" aria-label="Petal Kingdom title screen">
+        <!-- Owner, 2026-08-27: *"need to make sure ALL games has back icon to the hub"* --
+             a 4-year-old could not get out of the game. It lives INSIDE the title screen
+             rather than fixed to the viewport, because `.screen` is absolute+inset:0 and
+             only the active one displays: put here, the arrow appears and disappears with
+             the title screen instead of hanging over the mode screen's own back button.
+             Absolute URL on purpose: published, /flower-shooter/ and /children-apps/ are
+             siblings, but in the repo the hub lives under site/, so a relative link would
+             work live and 404 in every local preview. -->
+        <a class="round-button hub-button" href="https://veeranuchlee.github.io/children-apps/" aria-label="Back to Children Games">
+          <span aria-hidden="true">&larr;</span>
+        </a>
         <div class="title-art" aria-hidden="true">
           <!-- ASSET SLOT: assets/art/title-card.png (1536x1024) drops in here as a background -->
           <div class="title-crest">
