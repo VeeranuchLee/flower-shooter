@@ -5,7 +5,7 @@
    a missing file must never break installation, so they are added one by one
    and failures are swallowed. When art is added later, bump CACHE_NAME. */
 
-const CACHE_NAME = "petal-kingdom-v6";
+const CACHE_NAME = "petal-kingdom-v7";
 
 /* Every APP_FILES entry must exist on the PUBLISHED site, not just here: install
    calls addAll, so a single 404 rejects the whole install and the app goes live
@@ -50,10 +50,13 @@ self.addEventListener("install", (event) => {
   );
 });
 
-/* Cache isolation (private PR #288): evict only this app's own old caches - sibling apps on this origin keep theirs. */
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
+      /* Evict only this app's old versions (petal-kingdom-v*). Several repo apps
+         share one origin when published, each with its own worker — deleting every
+         cache that is not ours would evict the neighbours' offline caches. Foreign
+         cache names are not ours to touch. */
       Promise.all(keys.filter((k) => /^petal-kingdom-v/.test(k) && k !== CACHE_NAME).map((k) => caches.delete(k)))
     ).then(() => self.clients.claim())
   );
