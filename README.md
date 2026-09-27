@@ -114,6 +114,8 @@ Full specification in `ASSET-PLAN.md`.
 - The grid is an offset hex layout. `neighbourCells()` encodes the adjacency and
   `parity` tracks whether the top row is flush or half-shifted, so pushing a new
   ceiling row never moves an existing flower sideways. If you touch either, the
-  turn record's verification harness checks neighbour symmetry and geometry.
+  runnable `tools/check-engine.mjs` gate checks neighbour symmetry, geometry,
+  ceiling motion and the danger-line loss condition; run its paired mutation
+  proof with `python3 tools/selftest-engine.py`.
 - Bump `CACHE_NAME` in `service-worker.js` whenever app files change, or
   installed copies will keep serving the old version.

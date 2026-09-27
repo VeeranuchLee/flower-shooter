@@ -5,7 +5,16 @@
    a missing file must never break installation, so they are added one by one
    and failures are swallowed. When art is added later, bump CACHE_NAME. */
 
-const CACHE_NAME = "petal-kingdom-v7";
+// v8 2026-09-22: zoom-trap fix -- the global gesturestart pinch blocker is
+//        gone estate-wide (INTERACTION-DIRECTION.md); this bump carries it.
+// v9 2026-09-27: zoom fix C (method C, owner-approved 2026-09-25) -- the shared
+//        ./tap-zoom-guard.js stops the ZOOM of a second quick single-finger tap and
+//        re-delivers that tap, while a multi-finger pinch is never touched. It is in
+//        APP_FILES because a shell list is only read when CACHE_NAME changes: without
+//        the bump the file would be listed but cached nothing, and an offline install
+//        would have a page that asks for a guard the cache never got. v8 was itself
+//        never published, so this rides an unpublished bump.
+const CACHE_NAME = "petal-kingdom-v9";
 
 /* Every APP_FILES entry must exist on the PUBLISHED site, not just here: install
    calls addAll, so a single 404 rejects the whole install and the app goes live
@@ -18,6 +27,7 @@ const APP_FILES = [
   "./",
   "./index.html",
   "./styles.css",
+  "./tap-zoom-guard.js",
   "./app.js",
   "./manifest.webmanifest"
 ];

@@ -334,7 +334,15 @@ button {
   display: block;
   width: 100%;
   height: 100%;
-  touch-action: none;
+  /* Zoom fix C, 2026-09-27: was `touch-action: none`. The canvas is the whole game
+     surface, so `none` here was the dollhouse-app trap exactly -- a child could zoom
+     in and then could not get out, because the surface under their fingers refused the
+     pinch. It does not need `none` to be safe: aiming keeps a SINGLE pointer record
+     (`setPointerCapture` on one pointerId, one `aim` object), and nothing in Petal
+     Kingdom is played with two fingers at once, so there is no two-finger gesture for
+     `none` to protect. `pinch-zoom` suppresses the page pan exactly as `none` did --
+     the drag is unchanged -- and gives the pinch back. */
+  touch-action: pinch-zoom;
 }
 
 /* Helper rail: sits over the canvas edge; hidden when there is no room. */
@@ -586,14 +594,24 @@ button {
  *                          half, and it was missing from every app but one.
  * touch-action: manipulation  removes double-tap-to-zoom WITHOUT killing scroll.
  *                          Deliberately not `none`: that would stop scrolling.
- *                          Drawing surfaces set their own `touch-action: none`
- *                          and keep it -- a more specific rule still wins.
+ *                          The one drag surface sets its own
+ *                          `touch-action: pinch-zoom` (.game-canvas) and keeps it --
+ *                          a more specific rule still wins, and pinch-zoom still
+ *                          lets a two-finger pinch through.
  *
- * Pinch needs JavaScript, not CSS: iOS Safari has ignored user-scalable=no since
- * iOS 10, so the viewport meta does nothing. See the gesturestart guard in the
- * HTML.
+ * manipulation is not the whole answer on its own. iPadOS Safari still double-tap
+ * zooms with it in place (owner, 2026-09-25: "kids sometimes double tap, and on
+ * ipad it's zoom in, then they cant zoom out"), which is what ./tap-zoom-guard.js,
+ * loaded first in index.html, is for. It is NOT a gesturestart handler and must
+ * never become one: a document-level pinch blocker is the banned pattern in
+ * INTERACTION-DIRECTION.md, diagnosed in dollhouse-app on 2026-09-07.
+ *
+ * The sentence this block used to end with -- "See the gesturestart guard in the
+ * HTML" -- pointed at a blocker deleted estate-wide on 2026-09-22, so for a week it
+ * read to the next agent as a missing feature to restore. It is the fingerprint of
+ * the banned pattern re-entering, in comment form.
  */
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; touch-action: manipulation; }
 
 body {
   -webkit-user-select: none;

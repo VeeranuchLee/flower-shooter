@@ -2,7 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <!-- Zoom fix C, 2026-09-27. `user-scalable=no` is GONE from the viewport meta
+         above, deliberately. iOS has ignored it since iOS 10 on purpose -- zoom is an
+         accessibility feature -- while Android Chrome honours it, so the tag was a real
+         global pinch blocker on exactly the platform that respects it, and did nothing
+         on the iPad in the house. The fix is ./tap-zoom-guard.js below, not the meta tag
+         (INTERACTION-DIRECTION.md layer 4). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#b45ea8" />
     <meta name="description" content="A unicorn and princess flower-matching shooter for children." />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -190,13 +196,15 @@
       </div>
     </main>
 
+    <!-- Zoom fix C (2026-09-25, owner: "pick the method that most likely to work well").
+         First, before the game, because it is a document-level listener and must be in
+         place before the game starts handling taps. It stops the ZOOM of a second quick
+         tap -- and a four-year-old claiming targets by tapping them is exactly who taps
+         twice -- and re-delivers that tap; a multi-finger pinch is never touched, so a
+         child who is zoomed in can always pinch back out. It is NOT a gesturestart
+         handler and must never become one: a document-level pinch blocker is the banned
+         pattern in INTERACTION-DIRECTION.md. -->
+    <script src="./tap-zoom-guard.js"></script>
     <script src="./app.js"></script>
-    <script>
-  /* Pinch-zoom guard. iOS Safari ignores user-scalable=no (since iOS 10), so this is
-     the only thing that stops two small hands zooming the page mid-play. gesturestart
-     fires once per pinch; preventing it cancels the zoom and touches nothing else.
-     Other browsers never fire it, so this is inert there. */
-  document.addEventListener("gesturestart", function (e) { e.preventDefault(); }, { passive: false });
-  </script>
   </body>
 </html>

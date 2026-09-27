@@ -1953,12 +1953,13 @@
       if (document.hidden && game && game.state === "playing") pauseGame();
     });
 
-    // stop iOS double-tap zoom / rubber-band inside the app shell
-    document.addEventListener("gesturestart", function (e) { e.preventDefault(); });
-    document.addEventListener("touchmove", function (e) {
-      if (e.target && e.target.closest && e.target.closest(".level-grid, .overlay-card")) return;
-      e.preventDefault();
-    }, { passive: false });
+    // No global gesturestart/touchmove blockers: they cancel the pinch that is a
+    // zoomed-in child's only way back out (INTERACTION-DIRECTION.md). Double-tap
+    // zoom is stopped by ./tap-zoom-guard.js, loaded first in index.html, which
+    // re-delivers the second tap rather than swallowing it; `touch-action:
+    // manipulation` on html and body covers the rest. The drag surface is
+    // `touch-action: pinch-zoom` (.game-canvas), not `none`, so a pinch still
+    // reaches Safari and a child who is zoomed in can get back out.
 
     showScreen("titleScreen");
 
