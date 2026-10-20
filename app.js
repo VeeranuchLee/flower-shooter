@@ -270,6 +270,7 @@
       this.tone(311, 0.42, "sine", 0.10, 0.16);
     }
   };
+  if (typeof AudioWake !== "undefined") AudioWake.attach(function () { return Audio1.ctx; }, function () { Audio1.ctx = null; });
 
   function clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
   function rand(n) { return Math.floor(Math.random() * n); }
