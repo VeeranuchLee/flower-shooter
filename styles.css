@@ -102,6 +102,19 @@ button {
 .big-button--ghost:active { box-shadow: 0 2px 0 #e6c9dd, 0 6px 14px var(--shadow); }
 .big-button__icon { font-size: 1.15em; line-height: 1; }
 
+/* Drawn UI icons (owner rule, 2026-10-20: no emoji a child can see). Every
+   emoji-sized picture in the chrome is an inline SVG carrying .icon-svg,
+   drawn in the app palette with rounded strokes. Sizes are in ems so each
+   icon sits where its emoji did, at the size that emoji rendered — a 1em box
+   scaled per context below, matching the glyph metrics Apple/Google drew. */
+.icon-svg { display: block; width: 1.2em; height: 1.2em; flex: none; }
+.chip-button .icon-svg { width: 1.35em; height: 1.35em; }
+.big-button__icon .icon-svg { width: 1.2em; height: 1.2em; }
+.mode-icon .icon-svg { width: 1.1em; height: 1.1em; }
+.overlay-emoji .icon-svg { width: 1.1em; height: 1.1em; }
+.card-num { line-height: 1; }
+.card-num .icon-svg { width: 1.15em; height: 1.15em; }
+
 .round-button {
   display: grid;
   place-items: center;

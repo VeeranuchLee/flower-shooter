@@ -1679,6 +1679,86 @@
      8. UI WIRING + BOOT
      ====================================================================== */
 
+  /* Drawn UI icons (owner rule, 2026-10-20: no emoji a child can see). Each
+     string is the inline SVG that replaced the emoji which used to sit in that
+     spot — same box the glyph occupied (.icon-svg in styles.css sizes it in
+     ems), same palette the canvas sprites wear. index.html carries its own
+     copies for the static markup; the two must stay in step. The speaker pair
+     follows the drawn-icon precedent in writing-book/vocab.js and
+     math-app/magic-spelling.html: currentColor body, round-capped waves, a
+     slash for muted. */
+  var ICONS = {
+    // Five round petals + gold heart: the "rose" sprite from section 1.
+    flower:
+      '<svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+      '<g fill="#F8467F" stroke="#C21C58" stroke-width="2">' +
+      '<ellipse cx="24" cy="11.5" rx="6.4" ry="8"/>' +
+      '<ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(72 24 24)"/>' +
+      '<ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(144 24 24)"/>' +
+      '<ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(216 24 24)"/>' +
+      '<ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(288 24 24)"/>' +
+      '</g>' +
+      '<circle cx="24" cy="24" r="6.6" fill="#FFE07A" stroke="#E9A93B" stroke-width="2"/>' +
+      '</svg>',
+    speakerOn:
+      '<svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+      '<path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/>' +
+      '<path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>' +
+      '</svg>',
+    speakerOff:
+      '<svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+      '<path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/>' +
+      '<path d="M16 9.5l6 5M22 9.5l-6 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>' +
+      '</svg>',
+    // Padlock for locked gardens; currentColor picks up the card's muted ink.
+    lock:
+      '<svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+      '<rect x="4.5" y="10" width="15" height="10.5" rx="3.2" fill="currentColor"/>' +
+      '<path d="M8 10V7.5a4 4 0 0 1 8 0V10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>' +
+      '</svg>',
+    // Win: gold crown with a rose gem. Lose: two-leaf seedling on a mint stem.
+    crown:
+      '<svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+      '<path d="M9 33 6.5 15.5l9.5 7L24 10l8 12.5 9.5-7L39 33z" fill="#FFC94D" stroke="#E8A020" stroke-width="2.4" stroke-linejoin="round"/>' +
+      '<path d="M11 33h26v4.5a2.5 2.5 0 0 1-2.5 2.5h-21A2.5 2.5 0 0 1 11 37.5z" fill="#FFC94D" stroke="#E8A020" stroke-width="2.4" stroke-linejoin="round"/>' +
+      '<circle cx="24" cy="24" r="2.6" fill="#FF7FB6"/>' +
+      '</svg>',
+    seedling:
+      '<svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+      '<path d="M24 44V25" fill="none" stroke="#2CC08A" stroke-width="3.2" stroke-linecap="round"/>' +
+      '<path d="M24 29C14 29 8.5 23.5 8.5 14.5c9 0 15.5 5 15.5 14.5z" fill="#2CC08A" stroke="#12855C" stroke-width="2.2" stroke-linejoin="round"/>' +
+      '<path d="M24 26c0-8 5.5-13 14.5-14C39 21 34 26.5 24 26z" fill="#8CE7C4" stroke="#12855C" stroke-width="2.2" stroke-linejoin="round"/>' +
+      '</svg>',
+    // Pause: the "snow daisy" sprite — eight thin white petals, gold heart.
+    daisy:
+      '<svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+      '<g fill="#FFFFFF" stroke="#B9AECB" stroke-width="1.8">' +
+      '<ellipse cx="24" cy="10.5" rx="4.4" ry="8"/>' +
+      '<ellipse cx="24" cy="10.5" rx="4.4" ry="8" transform="rotate(45 24 24)"/>' +
+      '<ellipse cx="24" cy="10.5" rx="4.4" ry="8" transform="rotate(90 24 24)"/>' +
+      '<ellipse cx="24" cy="10.5" rx="4.4" ry="8" transform="rotate(135 24 24)"/>' +
+      '<ellipse cx="24" cy="10.5" rx="4.4" ry="8" transform="rotate(180 24 24)"/>' +
+      '<ellipse cx="24" cy="10.5" rx="4.4" ry="8" transform="rotate(225 24 24)"/>' +
+      '<ellipse cx="24" cy="10.5" rx="4.4" ry="8" transform="rotate(270 24 24)"/>' +
+      '<ellipse cx="24" cy="10.5" rx="4.4" ry="8" transform="rotate(315 24 24)"/>' +
+      '</g>' +
+      '<circle cx="24" cy="24" r="7" fill="#FFD84D" stroke="#D9A417" stroke-width="2"/>' +
+      '</svg>',
+    // How-to-play: the helper unicorn as a face — gold horn, rose mane curls.
+    unicorn:
+      '<svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+      '<path d="M12 21c-4.5 1.5-6.5 5.5-5 10M13 32c-3.5 1.5-4.5 4.5-3 7.5" fill="none" stroke="#FF7FB6" stroke-width="4" stroke-linecap="round"/>' +
+      '<path d="M13 16l-3-6 6.5 2.5zM35 16l3-6-6.5 2.5z" fill="#FFF6FB" stroke="#B9AECB" stroke-width="1.8" stroke-linejoin="round"/>' +
+      '<path d="M24 3l3.4 10.5h-6.8z" fill="#FFC94D" stroke="#E8A020" stroke-width="2" stroke-linejoin="round"/>' +
+      '<path d="M24 12c7.2 0 12 5 12 12v8c0 7-5 12-12 12s-12-5-12-12v-8c0-7 4.8-12 12-12z" fill="#FFF6FB" stroke="#B9AECB" stroke-width="2.2" stroke-linejoin="round"/>' +
+      '<circle cx="19.5" cy="25" r="1.9" fill="#4A2350"/>' +
+      '<circle cx="28.5" cy="25" r="1.9" fill="#4A2350"/>' +
+      '<circle cx="16" cy="29" r="1.7" fill="#FF9CC4"/>' +
+      '<circle cx="32" cy="29" r="1.7" fill="#FF9CC4"/>' +
+      '<path d="M22 34.5q2 1.8 4 0" fill="none" stroke="#7A4D84" stroke-width="1.8" stroke-linecap="round"/>' +
+      '</svg>'
+  };
+
   var el = {};
   var progress = Store.read();
   var game = null;
@@ -1698,7 +1778,7 @@
   function showOverlay(opts) {
     el.overlayTitle.textContent = opts.title || "";
     el.overlayText.textContent = opts.text || "";
-    el.overlayEmoji.textContent = opts.emoji || "🌸";
+    el.overlayEmoji.innerHTML = ICONS[opts.icon] || ICONS.flower;
     el.overlayArt.dataset.hasArt = opts.useWinArt && Art.ready.winBanner ? "true" : "false";
     el.overlayArt.style.backgroundImage =
       (opts.useWinArt && Art.ready.winBanner) ? 'url("' + ASSET_SLOTS.winBanner + '")' : "none";
@@ -1748,7 +1828,9 @@
                : (info.stageWord + " " + (i + 1) + ", " + lv.name));
 
       var num = document.createElement("span");
-      num.textContent = locked ? "🔒" : String(i + 1);
+      num.className = "card-num";
+      if (locked) num.innerHTML = ICONS.lock;
+      else num.textContent = String(i + 1);
 
       var name = document.createElement("span");
       name.className = "card-name";
@@ -1818,7 +1900,7 @@
       showOverlay({
         title: mode === "classic" ? "The garden bloomed!" : (mode === "arcade" ? "Challenge complete!" : "Puzzle solved!"),
         text: "Score " + score + " · " + shots + " flowers used",
-        emoji: "👑",
+        icon: "crown",
         stars: stars,
         useWinArt: true,
         buttons: [
@@ -1832,7 +1914,7 @@
       showOverlay({
         title: mode === "puzzle" ? "Out of shots" : (mode === "arcade" ? "Challenge over" : "The garden grew too tall"),
         text: mode === "puzzle" ? "Look for a drop that clears several flowers at once." : (mode === "arcade" ? "Try the objective again and build bigger matches." : "Try again — aim for groups of three of the same flower."),
-        emoji: "🌱",
+        icon: "seedling",
         buttons: [
           { label: "Try again", onClick: function () { hideOverlay(); startGame(idx); } },
           { label: "Choose stage", ghost: true, onClick: function () { hideOverlay(); game.stop(); showScreen("levelScreen"); } }
@@ -1847,7 +1929,7 @@
     showOverlay({
       title: "Paused",
       text: "Take your time.",
-      emoji: "🌼",
+      icon: "daisy",
       buttons: [
         { label: "Keep playing", onClick: function () { hideOverlay(); game.state = "playing"; } },
         { label: "Start over", ghost: true, onClick: function () { hideOverlay(); startGame(game.levelIndex); } },
@@ -1864,7 +1946,7 @@
       if (!b) return;
       b.setAttribute("aria-pressed", on ? "true" : "false");
       var icon = b.querySelector("span[aria-hidden]");
-      if (icon) icon.textContent = on ? "🔊" : "🔇";
+      if (icon) icon.innerHTML = on ? ICONS.speakerOn : ICONS.speakerOff;
       var label = b.querySelector(".chip-label");
       if (label) label.textContent = on ? "Sound on" : "Sound off";
       if (b === el.soundButton) b.setAttribute("aria-label", on ? "Turn sound off" : "Turn sound on");
@@ -1929,7 +2011,7 @@
         text: "Aim with your finger or the mouse, then let go to send the flower flying. "
             + "Touch three or more of the same flower together and they bloom away. "
             + "Anything left hanging falls too. Clear the whole garden before it grows past the dotted line!",
-        emoji: "🦄",
+        icon: "unicorn",
         buttons: [{ label: "Got it", onClick: hideOverlay }]
       });
     });

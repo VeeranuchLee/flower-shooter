@@ -19,6 +19,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png" />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./cg-back.css" />
   </head>
   <body>
     <main class="app-shell">
@@ -32,9 +33,7 @@
              Absolute URL on purpose: published, /flower-shooter/ and /children-apps/ are
              siblings, but in the repo the hub lives under site/, so a relative link would
              work live and 404 in every local preview. -->
-        <a class="round-button hub-button" href="https://veeranuchlee.github.io/children-apps/" aria-label="Back to Children Games">
-          <span aria-hidden="true">&larr;</span>
-        </a>
+        <a class="cg-back" href="https://veeranuchlee.github.io/children-apps/" aria-label="Back to Children Games"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <div class="title-art" aria-hidden="true">
           <!-- ASSET SLOT: assets/art/title-card.png (1536x1024) drops in here as a background -->
           <div class="title-crest">
@@ -49,7 +48,21 @@
 
         <div class="title-buttons">
           <button class="big-button big-button--play" id="playButton" type="button">
-            <span class="big-button__icon" aria-hidden="true">🌸</span>
+            <!-- Drawn rose, not a flower emoji (owner rule, 2026-10-20: no
+                 emoji in the UI). Same five round petals and gold heart the
+                 canvas sprites wear, so the button matches the playfield. -->
+            <span class="big-button__icon" aria-hidden="true">
+              <svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <g fill="#F8467F" stroke="#C21C58" stroke-width="2">
+                  <ellipse cx="24" cy="11.5" rx="6.4" ry="8"/>
+                  <ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(72 24 24)"/>
+                  <ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(144 24 24)"/>
+                  <ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(216 24 24)"/>
+                  <ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(288 24 24)"/>
+                </g>
+                <circle cx="24" cy="24" r="6.6" fill="#FFE07A" stroke="#E9A93B" stroke-width="2"/>
+              </svg>
+            </span>
             <span class="big-button__label">Play</span>
           </button>
           <button class="big-button big-button--ghost" id="howButton" type="button">
@@ -59,11 +72,25 @@
         </div>
 
         <div class="title-footer">
+          <!-- Both chips carry drawn icons (owner rule, 2026-10-20). The speaker
+               follows the writing-book/vocab.js + math-app/magic-spelling.html
+               precedent: currentColor body, round-capped waves, a slash when
+               muted. app.js setSound() swaps the inner SVG the same way. -->
           <button class="chip-button" id="titleSoundButton" type="button" aria-pressed="true">
-            <span aria-hidden="true">🔊</span> <span class="chip-label">Sound on</span>
+            <span aria-hidden="true">
+              <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/>
+                <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+              </svg>
+            </span> <span class="chip-label">Sound on</span>
           </button>
           <button class="chip-button" id="titleMotionButton" type="button" aria-pressed="false">
-            <span aria-hidden="true">✨</span> <span class="chip-label">Full sparkle</span>
+            <span aria-hidden="true">
+              <svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M24 7q3.1 13.9 17 17-13.9 3.1-17 17-3.1-13.9-17-17 13.9-3.1 17-17z" fill="#E8A020"/>
+                <circle cx="36.5" cy="12" r="2.6" fill="#FFC94D"/>
+              </svg>
+            </span> <span class="chip-label">Full sparkle</span>
           </button>
         </div>
       </section>
@@ -78,20 +105,47 @@
           <div class="header-spacer" aria-hidden="true"></div>
         </header>
         <div class="mode-grid">
+          <!-- Mode icons are drawn, not tulip / monster / puzzle-piece emoji
+               (owner rule, 2026-10-20), each painted in the app palette: a rose
+               tulip on a mint stem, a violet invader with cream eyes, a
+               bluebell puzzle piece. -->
           <button class="mode-card mode-card--classic" type="button" data-mode="classic">
-            <span class="mode-icon" aria-hidden="true">🌷</span>
+            <span class="mode-icon" aria-hidden="true">
+              <svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M24 34v10" fill="none" stroke="#2CC08A" stroke-width="3.2" stroke-linecap="round"/>
+                <path d="M24 42c-6-.5-10-4.5-10.5-10 5.5.5 10 4 10.5 10z" fill="#2CC08A" stroke="#12855C" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M12 14v8a12 12 0 0 0 24 0v-8l-6 4.5L24 10l-6 8.5z" fill="#F8467F" stroke="#C21C58" stroke-width="2.2" stroke-linejoin="round"/>
+              </svg>
+            </span>
             <strong>Classic</strong>
             <span>Clear the garden while rows slowly descend.</span>
             <small>12 gardens</small>
           </button>
           <button class="mode-card mode-card--arcade" type="button" data-mode="arcade">
-            <span class="mode-icon" aria-hidden="true">👾</span>
+            <span class="mode-icon" aria-hidden="true">
+              <svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <g stroke="#A45BE2" stroke-width="3.4" stroke-linecap="round" fill="none">
+                  <path d="M16 13 12 7M32 13l4-6"/>
+                  <path d="M10 20H4M10 27l-4 5M38 20h6M38 27l4 5"/>
+                  <path d="M17 30v6M24 30v6M31 30v6"/>
+                </g>
+                <rect x="10" y="12" width="28" height="18" rx="9" fill="#A45BE2"/>
+                <circle cx="19" cy="21" r="3.2" fill="#FFF6FB"/>
+                <circle cx="29" cy="21" r="3.2" fill="#FFF6FB"/>
+                <circle cx="19.8" cy="21.6" r="1.4" fill="#4A2350"/>
+                <circle cx="29.8" cy="21.6" r="1.4" fill="#4A2350"/>
+              </svg>
+            </span>
             <strong>Arcade</strong>
             <span>Beat score, pop and drop challenges.</span>
             <small>8 challenges</small>
           </button>
           <button class="mode-card mode-card--puzzle" type="button" data-mode="puzzle">
-            <span class="mode-icon" aria-hidden="true">🧩</span>
+            <span class="mode-icon" aria-hidden="true">
+              <svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M13 21h3.8a5.6 5.6 0 1 1 10.4 0H30v3.8a5.6 5.6 0 1 1 0 10.4V38H13z" fill="#3E9BF0" stroke="#1662B4" stroke-width="2.2" stroke-linejoin="round"/>
+              </svg>
+            </span>
             <strong>Puzzle</strong>
             <span>Solve fixed flower maps with limited shots.</span>
             <small>8 puzzles</small>
@@ -138,7 +192,12 @@
             </div>
 
             <button class="round-button" id="soundButton" type="button" aria-pressed="true" aria-label="Turn sound off">
-              <span aria-hidden="true">🔊</span>
+              <span aria-hidden="true">
+                <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/>
+                  <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+              </span>
             </button>
           </header>
 
@@ -182,7 +241,21 @@
         <div class="overlay-card" id="overlayCard" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
           <div class="overlay-art" id="overlayArt" aria-hidden="true">
             <!-- ASSET SLOT: assets/art/win-banner.png on a win -->
-            <span class="overlay-emoji" id="overlayEmoji">🌸</span>
+            <!-- Default art is the drawn rose (was a flower emoji; owner rule
+                 2026-10-20). app.js showOverlay() swaps in the crown, seedling,
+                 daisy or unicorn SVG per result. -->
+            <span class="overlay-emoji" id="overlayEmoji">
+              <svg class="icon-svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <g fill="#F8467F" stroke="#C21C58" stroke-width="2">
+                  <ellipse cx="24" cy="11.5" rx="6.4" ry="8"/>
+                  <ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(72 24 24)"/>
+                  <ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(144 24 24)"/>
+                  <ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(216 24 24)"/>
+                  <ellipse cx="24" cy="11.5" rx="6.4" ry="8" transform="rotate(288 24 24)"/>
+                </g>
+                <circle cx="24" cy="24" r="6.6" fill="#FFE07A" stroke="#E9A93B" stroke-width="2"/>
+              </svg>
+            </span>
           </div>
           <h2 class="overlay-title" id="overlayTitle">Paused</h2>
           <p class="overlay-text" id="overlayText"></p>
