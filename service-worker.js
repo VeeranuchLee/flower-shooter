@@ -14,7 +14,8 @@
 //        the bump the file would be listed but cached nothing, and an offline install
 //        would have a page that asks for a guard the cache never got. v8 was itself
 //        never published, so this rides an unpublished bump.
-const CACHE_NAME = "petal-kingdom-v12";
+// v13 2026-10-23: owner-approved generated art fills the seven optional slots.
+const CACHE_NAME = "petal-kingdom-v13";
 
 /* Every APP_FILES entry must exist on the PUBLISHED site, not just here: install
    calls addAll, so a single 404 rejects the whole install and the app goes live

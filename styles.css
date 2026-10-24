@@ -184,6 +184,7 @@ button {
   background: radial-gradient(circle at 40% 35%, #fff 0%, var(--gold) 55%, var(--gold-deep) 100%);
   box-shadow: inset 0 -8px 16px rgba(0, 0, 0, 0.12), 0 8px 20px var(--shadow);
 }
+.crest-sparkle svg{width:1em;height:1em;display:block}
 .crest-sparkle {
   position: absolute;
   font-size: clamp(16px, 2.4vmin, 30px);
@@ -549,6 +550,7 @@ button {
 .overlay-text  { margin: 0; font-size: clamp(14px, 2vmin, 22px); color: var(--ink-soft); line-height: 1.45; }
 
 .overlay-stars { display: flex; gap: 0.25em; font-size: clamp(30px, 5.4vmin, 60px); color: #e4dbe4; }
+.overlay-stars svg { display: block; width: 1em; height: 1em; }
 .overlay-stars[hidden] { display: none; }
 .overlay-stars .star.is-earned {
   color: var(--gold);

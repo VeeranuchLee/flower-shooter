@@ -1841,7 +1841,7 @@
       var earned = track.stars[i] || 0;
       for (var s = 0; s < 3; s++) {
         var st = document.createElement("span");
-        st.textContent = "★";
+        st.innerHTML = "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M12 2.8l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 16.9 6.6 19.7l1-6.1L3.2 9.3l6.1-.9z\" fill=\"currentColor\"/></svg>";
         if (s < earned) st.className = "earned";
         stars.appendChild(st);
       }

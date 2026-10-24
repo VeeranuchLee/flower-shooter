@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "tool": "OpenAI Codex built-in image generation (image_gen)",
+  "model": "OpenAI built-in image generation model (identifier not exposed)",
+  "sharedDirection": "Soft premium children's storybook illustration; rounded forms; warm upper-left light and cool violet lower-right shading; Petal Kingdom palette; no hard black outlines, photographic texture, visible brush grit, flowers, text, letters, numbers, logos, watermarks, or scary elements.",
+  "postprocessing": "Pillow LANCZOS resize/fit to the exact runtime dimensions; alpha values below 8 cleared and values above 247 pinned to 255 on transparent RGBA assets; opaque assets use 256-colour adaptive PNG quantisation with Floyd-Steinberg dithering; all PNGs are optimised.",
+  "assets": [
+    {
+      "file": "garden-background.png",
+      "size": [2048, 1536],
+      "alpha": "opaque",
+      "attempt": 1,
+      "prompt": "Wide pastel royal garden landscape at dawn with gentle sky, rolling green meadow, clipped rounded hedges, and a very distant pale-violet fairytale castle slightly right of centre. Keep the centre 45% exceptionally quiet and low-detail, horizon below midpoint, interest in outer thirds and lower quarter, low contrast, no flowers or characters."
+    },
+    {
+      "file": "castle-band.png",
+      "size": [2048, 520],
+      "alpha": "full range",
+      "attempt": 2,
+      "prompt": "Single small pale-violet distant fairytale castle with exactly four round towers, four fully visible conical roofs, a low central keep, and one rolling hill base. Extremely wide transparent banner; castle in centre 45%; at least 15% transparent padding above the tallest roof and 20% at the sides; no flowers, flags, symbols, characters, text, or frightening detail. Attempt 2 corrected the clipped roof in attempt 1."
+    },
+    {
+      "file": "helper-idle.png",
+      "size": [768, 768],
+      "alpha": "full range",
+      "attempt": 1,
+      "prompt": "One small round-cheeked chibi unicorn with cream-white coat, rose-to-violet-to-sky rainbow mane, gold spiral horn, deep-plum eyes and princess-like gold circlet. Calm friendly idle expression, all four short legs visible, three-quarter view facing left, full silhouette on transparent-ready canvas, no flowers, text, scenery, shadows, or extra characters."
+    },
+    {
+      "file": "helper-cheer.png",
+      "size": [768, 768],
+      "alpha": "full range",
+      "attempt": 1,
+      "reference": "helper-idle generation source",
+      "prompt": "Reference edit of the idle unicorn into a delighted celebration pose: both front hooves raised, warm open smile, brighter eyes, and a few tiny gold sparkles. Preserve exact character identity, palette, scale, direction, canvas, baseline, bounds, and lighting; no flowers, text, scenery, or extra characters."
+    },
+    {
+      "file": "helper-worry.png",
+      "size": [768, 768],
+      "alpha": "full range",
+      "attempt": 1,
+      "reference": "helper-idle generation source",
+      "prompt": "Reference edit of the idle unicorn into a gently concerned but not frightened pose: ears slightly back, softly raised inner brows, tiny closed frown and slightly lowered head, all four hooves grounded. Preserve exact identity, palette, scale, direction, canvas, baseline, bounds, and lighting; no tears, fear, flowers, text, scenery, or extra characters."
+    },
+    {
+      "file": "win-banner.png",
+      "size": [1024, 1024],
+      "alpha": "opaque",
+      "attempt": 1,
+      "reference": "helper-idle generation source",
+      "prompt": "The same helper unicorn celebrating beside one friendly child-proportioned princess in a rose-and-violet dress with deep-plum hair and gold crown. Center both safely for a circular crop; add gold sparkles, ribbon curls and a floating crown motif over a soft radial background; correct hands and hooves; no flowers, plants, text, or extra characters."
+    },
+    {
+      "file": "title-card.png",
+      "size": [1536, 1024],
+      "alpha": "opaque",
+      "attempt": 1,
+      "reference": "helper-idle generation source",
+      "prompt": "Centered royal crest with a close left-facing profile portrait of the same crowned unicorn, a circular gold filigree ring, jewel-like dots, ribbon arcs, restrained gold sparkles and one simple crown above. Compose radially for a circular mask on a cream-to-rose-to-violet field; no flowers, leaves, vines, plants, text, or extra characters."
+    }
+  ]
+}
